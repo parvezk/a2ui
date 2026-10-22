@@ -1,5 +1,6 @@
 ## Unreleased
 
+- Added `Skill`, `SkillSet`, and `SkillGenerator` to compile A2UI inference formats and component catalogs into monolithic or modular `SKILL.md` packages.
 - **BREAKING**: `A2uiGenerator` and `A2uiRequestProcessor` now default to `ExpressFormatFactory` instead of `DirectJsonFormatFactory`.
 - **BREAKING**: A parser holds no state, and validation is separate from translation ([#3262](https://github.com/a2ui-project/a2ui/issues/3262), [#3263](https://github.com/a2ui-project/a2ui/issues/3263)). To migrate:
   1. `Parser.parseResponse(content, wrapped)` takes an options object: `parseResponse(content, {wrapped, state})`. It checks every message against the `RendererState` it is given, or a new, empty one, so an update to a surface the response does not create is now rejected unless the state holds the surface. A response is checked as a whole: a component may name a child that a later block adds, the trees of the surfaces it touches are checked once every block is applied, and the messages are applied to the state all or nothing. An error carries the parts read before the failing block in `partialResults`, or only the text when the tree check fails, since that check spans every block; none of them is applied to the state.
